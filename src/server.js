@@ -10,6 +10,7 @@ const startServer = async () => {
     await sequelize.authenticate()
 
     require('./models/User')
+    require('./models/Category')
     await sequelize.sync()
     console.log('Tabelas sincronizadas')
     console.log('Conexão com o banco OK')
