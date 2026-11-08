@@ -84,10 +84,10 @@ Stack obrigatória: Node.js, Express, dotenv, nodemon, MySQL, Sequelize, JWT, Je
   - [ ] `page` (default 1)
   - [ ] `fields` (ex: `name,slug`)
   - [ ] `use_in_menu=true`
-- [ ] `GET /v1/category/:id` → 200 / 404
-- [ ] `POST /v1/category` → 201 / 400 / 401
-- [ ] `PUT /v1/category/:id` → 204 / 400 / 401 / 404
-- [ ] `DELETE /v1/category/:id` → 204 / 401 / 404
+- [x] `GET /v1/category/:id` → 200 / 404
+- [x] `POST /v1/category` → 201 / 400 / 401
+- [x] `PUT /v1/category/:id` → 204 / 400 / 401 / 404
+- [x] `DELETE /v1/category/:id` → 204 / 401 / 404
 - [ ] Testado no Insomnia/Postman
 
 ## 5. Produtos (parte mais difícil, fazer por último)
