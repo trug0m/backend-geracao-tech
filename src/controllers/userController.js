@@ -1,4 +1,38 @@
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+
+const generateToken = async (req, res) => {
+  try {
+    const { email, password } = req.body
+
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email e senha são obrigatorios' })
+    }
+
+    const user = await User.findOne({ where: { email } })
+
+    if (!user) {
+      return res.status(400).json({ message: 'Email ou senha inválidos' })
+    }
+
+    const passwordMatches = await bcrypt.compare(password, user.password)
+
+    if (!passwordMatches) {
+      return res.status(400).json({ message: 'Email ou senha inválidos' })
+    }
+
+    const token = jwt.sign(
+      { id: user.id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRES_IN }
+    )
+    return res.status(200).json({ token })
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: 'Erro interno', error: error.message })
+  }
+}
 
 const User = require('../models/User')
 
@@ -102,4 +136,10 @@ const deleteUser = async (req, res) => {
   }
 }
 
-module.exports = { getUserById, createUser, updateUser, deleteUser }
+module.exports = {
+  getUserById,
+  createUser,
+  updateUser,
+  deleteUser,
+  generateToken,
+}
